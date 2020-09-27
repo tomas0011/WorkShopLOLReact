@@ -3,7 +3,7 @@ const capitalize = require('../suppliers/Capitalize')
 const axios = require('axios')
 
 // array de campeones encontrados
-const champions = []
+let champions = []
 
 server.get('/champions', (req, res) => {
     res.send(champions)
@@ -31,11 +31,14 @@ server.get('/:name', async (req, res) => {
     }
 })
 
-// server.delete('/delete/:name', async (req, res) => {
-//     const { name } = req.params;
+server.get('/delete/:name', async (req, res) => {
+    const { name } = req.params;
 
+    const newChamps = champions.filter((champ) => champ.champ.id !== capitalize(name))
 
-// })
+    champions = newChamps
+    res.send(newChamps)
+})
 
 
 module.exports = server
