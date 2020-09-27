@@ -14,9 +14,10 @@ export default function rootReducer(state=initialState, action){
                 champsName: state.champsName.concat(action.payload)
                 }
         case constants.RES_CHAMP:
+            console.log(action.payload)
             return {
                 ...state,
-                resChamp: state.resChamp.concat(action.payload)
+                resChamp: action.payload
             }
         default:
             return state;
