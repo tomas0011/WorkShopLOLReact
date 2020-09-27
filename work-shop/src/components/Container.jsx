@@ -11,8 +11,12 @@ export default function Container() {
     // 
     const lista = useSelector(state=> state.resChamp)
     
-        
+        function handleSumbit(){
 
+            return ('nada')
+            // action.resolveChamp(campeones)
+
+        }
 
     return (
         <div>
@@ -34,7 +38,7 @@ export default function Container() {
             :  <h2>'Aun no hay campeones'</h2>
 
             }
-                    <button className='btn btn-info' onClick={actions.resolveChamp(campeones)}>Buscar Campeones</button>
+                    <button className='btn btn-info' onClick={()=>handleSumbit()}>Buscar Campeones</button>
 
         </div>
     )

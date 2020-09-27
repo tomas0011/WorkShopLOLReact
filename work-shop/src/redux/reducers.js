@@ -2,7 +2,7 @@ import * as constants from './constants';
 
 
 const initialState = {
-        champsName: ['Shen', 'Katarina', 'TahmKench'],
+        champsName: [],
         resChamp: []
     };
 
