@@ -6,11 +6,13 @@ import * as action from '../redux/actions'
 
 export default function Container() {
     const dispatch = useDispatch()
+    // todos los campeones
     const campeones = useSelector(state=> state.champsName)
+    // 
     const lista = useSelector(state=> state.resChamp)
     
+        
 
-  
 
     return (
         <div>
@@ -25,13 +27,15 @@ export default function Container() {
                 ?   // si hay campeones
                     <div>
                         <ul>
-                                <ChampCard/>
+                                <ChampCard/>  {/* Acá vamos a mapear todos los CAMPEONES*/}
                         </ul>
 
                     </div>
-                :   // si no hay campeones
-                    <button className='btn btn-info' onClick={''}>Buscar Campeones</button>
+            :  <h2>'Aun no hay campeones'</h2>
+
             }
+                    <button className='btn btn-info' onClick={actions.resolveChamp(campeones)}>Buscar Campeones</button>
+
         </div>
     )
 }
