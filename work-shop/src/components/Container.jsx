@@ -17,6 +17,8 @@ export default function Container() {
             <br/>
             <h1>WorkShop de Async-Await</h1>
             <h3>ft05-g5 PMs Tomas y Leandro</h3>
+            <h2>ft05-g5 PMs parte 2</h2>
+
             <br/>
             <br/>
             {lista.length
