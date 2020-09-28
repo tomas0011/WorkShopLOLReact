@@ -12,34 +12,23 @@ export default function Container() {
     const lista = useSelector(state=> state.resChamp)
     
         function handleSumbit(){
-
-            return ('nada')
-            // action.resolveChamp(campeones)
-
+            action.resolveChamp(campeones)
         }
 
     return (
         <div>
-            <br/>
-            <h1>WorkShop de Async-Await</h1>
-            <h3>ft05-g5 PMs Tomas y Leandro</h3>
-            <h2>ft05-g5 PMs parte 2</h2>
+        
+                <div className='container row'>
 
-            <br/>
-            <br/>
-            {lista.length
-                ?   // si hay campeones
-                    <div>
-                        <ul>
-                                <ChampCard/>  {/* Acá vamos a mapear todos los CAMPEONES*/}
-                        </ul>
-
-                    </div>
-            :  <h2>'Aun no hay campeones'</h2>
-
-            }
-                    <button className='btn btn-info' onClick={()=>handleSumbit()}>Buscar Campeones</button>
-
+                     <ul >
+                        
+                    {campeones.map(campeon=>(
+                                    <li style={{float:'left'}} key={campeon.champ.key}>
+                                        <ChampCard  asd={{img:campeon.img,name:campeon.champ.id,lore:campeon.champ.lore }}/> 
+                                     </li>
+                                 ))}
+                     </ul>
+                </div>
         </div>
     )
 }

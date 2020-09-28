@@ -17,6 +17,7 @@ export default function NavBar() {
     
     const handlerOnSubmit = (e) => {
         e.preventDefault()
+        console.log(input)
         if(input)
         dispatch(actions.getChamp(input))
          setInput('')
