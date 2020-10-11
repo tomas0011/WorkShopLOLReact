@@ -8,7 +8,7 @@ export default function NavBar() {
     
     const [input, setInput] = useState('')
 
-    const champs = useSelector(state=>state.champsName)
+    // const champs = useSelector(state=>state.champsName)
 
 
     const handlerOnChange = (e) => {
