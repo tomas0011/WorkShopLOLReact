@@ -1,11 +1,21 @@
 require("dotenv").config();
-const server = require('./src/app')
+const server = require("./src/app.js");
+const { conn } = require("./src/db.js");
 
-// se utiliza process.env para acceder al puerto activo
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 19000
 
-server.listen(PORT, ()=>{
-    console.log(` __________________________________`)
-    console.log(`| Server corriendo en puerto ${PORT} |`)
-    console.log(` VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV`)
-})
+//----------------------------------------------------------------------------//
+//-----------------------SYNC-DEL-SERVIDOR------------------------------------//
+//-------------------------vvvvvvvvvvvvvv-------------------------------------//
+//--------------------------{force:true}--------------------------------------//
+//-------------------------^^^^^^^^^^^^^^-------------------------------------//
+//-------------------PARA QUE RESETEE EL SERVIDOR-----------------------------//
+//---------vvvvvvvvvvvvvvvvv--------------------------------------------------//
+
+conn.sync({ force: true }).then(() => {
+    server.listen(PORT, () => {
+        console.log("_________________________________________________");
+        console.log(`||--> el servidor esta corriendo en el ${PORT} <--||`);
+        console.log("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+    });
+});
