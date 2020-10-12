@@ -1,43 +1,65 @@
 const server = require("express").Router();
 const capitalize = require('../suppliers/Capitalize')
 const axios = require('axios')
+const { Champion, Stat } = require('../db');
 
-// array de campeones encontrados
-let champions = []
-
-server.get('/champions', (req, res) => {
-    res.send(champions)
+server.get('/all', async (req, res) => {
+    res.send(await Champion.findAll({ include: { model: Stat } }))
 })
 
-server.get('/:name', async (req, res) => {
-    const { name } = req.params;
+server.post('/:name', async (req, res) => {
+    const name = capitalize(req.params.name);
 
-    try{
-        // consulta a campeon
-        const champ = await axios.get(`http://ddragon.leagueoflegends.com/cdn/10.19.1/data/en_US/champion/${capitalize(name)}.json`)
+    const exist = await Champion.findOne({ where: { name } })
+    
+    if(exist) return res.status(400).send('El campeon ya existe')
+    
+    axios.get(`http://ddragon.leagueoflegends.com/cdn/10.19.1/data/en_US/champion/${name}.json`)
+        .then(api => api.data.data[name])
+        .then(champ => {
+            const { stats } = champ;
+            return {
+                champ: {
+                        name,
+                        description: champ.lore,
+                        img: `http://ddragon.leagueoflegends.com/cdn/10.19.1/img/champion/${champ.image.full}`
+                    },
+                stat: {
+                        hp: stats.hp,
+                        attack: stats.attackdamage,
+                        defense: stats.armor,
+                        attackSpeed: stats.attackspeed
+                    }
+            }
+        })
+        .then(async data => {
+            const champ = await Champion.create(data.champ)
+            const stat = await Stat.create(data.stat)
+            await stat.setChampion(champ.dataValues.id)
 
-        const data = champ.data.data[capitalize(name)]
-        const img = data.image.full
-
-        const obj = {
-            champ: data,
-            img: `http://ddragon.leagueoflegends.com/cdn/10.19.1/img/champion/${img}`
-        }
-
-        champions.push(obj)
-        res.send(obj)
-    } catch(err) { 
-        res.send(res.status(404).send('Campeon no encontrado')) 
-    }
+            return {
+                ...champ.dataValues,
+                stat: stat.dataValues
+            }
+        })
+        .then(champ => res.send(champ))
+        .catch(err => {
+            console.log(err)
+            res.send(err)
+        })
 })
 
-server.get('/delete/:name', async (req, res) => {
-    const { name } = req.params;
+server.delete('/delete/:name', async (req, res) => {
+    const name = capitalize(req.params.name);
 
-    const newChamps = champions.filter((champ) => champ.champ.id !== capitalize(name))
-
-    champions = newChamps
-    res.send(newChamps)
+    Champion.destroy({
+            where: { name }
+        })
+        .then(d => d
+            ? res.send('se elimino')
+            : res.send('no se elimino')
+        )
+        .catch(err => res.send(err))
 })
 
 
