@@ -22,12 +22,6 @@ export default function ChampCard(props) {
                                     <div className=" row  m-2">
                                         Defensa: 
                                     </div>
-                                    <div className=" row  m-2"
-                                        >Ataque Mágico:
-                                    </div>
-                                    <div className=" row  m-2">
-                                        Defensa Mágica:
-                                    </div>
                                     <div className=" row  m-2">
                                         Velocidad de ataque:
                                     </div>
