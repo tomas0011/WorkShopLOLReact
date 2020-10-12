@@ -15,8 +15,8 @@ export default function Container() {
         
                 <div className='container'>
                     {campeones.map(campeon=>(
-                                         <div className='row' key={campeon.champ.id}>
-                                            <ChampCard  asd={{img:campeon.img,name:campeon.champ.id,lore:campeon.champ.lore }}/> 
+                                         <div className='row' key={campeon.id}>
+                                            <ChampCard  {...campeon}/> 
                                         </div>       
                                         ))}
                 </div>
