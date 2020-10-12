@@ -14,9 +14,12 @@ const cardsPath = require('./routes/champ')
 // middlewares
 server.use(bodyPaser.json())
 server.use(morgan("dev"));
+
+const whiteList = ['http://localhost:3000']
+
 server.use(cors({
     credentials: true,
-    origin: 'http://localhost:3000',
+    origin: whiteList,
     allowedHeaders: "Origin, X-Requested-With, Content-Type, X-Auth-Token, X-PINGOTHER, Accept",
     methods: "GET,HEAD,PUT,PATCH,OPTIONS,POST,DELETE"
 }))
