@@ -1,13 +1,24 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import './App.css';
 import Container from './components/Container';
 import NavBar from './components/NavBar';
 import { Route } from "react-router-dom";
 import BattleGround from './components/BattleGround';
-// import { useSelector, useDispatch } from "react-redux";
-// import * as actions from "./redux/actions"; //Importamos todas las actions de redux
+import { useSelector, useDispatch } from "react-redux";
+ import * as actions from "./redux/actions"; //Importamos todas las actions de redux
 
 function App() {
+  const dispatch = useDispatch()
+
+
+
+    useEffect(()=>{
+      console.log('andandos')
+        dispatch(actions.getAllChamp())
+
+
+    },[])
+
   return (
     <div className="App">
 

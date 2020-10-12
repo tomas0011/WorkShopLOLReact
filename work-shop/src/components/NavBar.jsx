@@ -39,7 +39,7 @@ export default function NavBar() {
                 </ul>
                 <form className="form-inline ">
                 <input className="form-control mr-sm-2" value={input} type="search" placeholder="Search" aria-label="Search" onChange={handlerOnChange}/>
-                <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={(e)=>handlerOnSubmit(e)}>Buscar</button>
+                   <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={(e)=>handlerOnSubmit(e)}>Buscar</button>
                 </form>
             </div>
             </nav>
