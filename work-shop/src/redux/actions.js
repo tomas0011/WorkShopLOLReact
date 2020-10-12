@@ -7,7 +7,8 @@ export function getChamp(champName){
 		return axios					// req.body <= todosloschampions 
 			.get(`http://localhost:9000/champ/${champName}`, {withCredentials: true})
 			.then(champDetails => {
-				dispatch({type: constants.GET_CHAMP, payload: champDetails.data});
+				dispatch({type: constants.GET_CHAMP, payload: champDetails.data})
+				return champDetails;
 			})
 			.catch(err => console.log(err));
 	};
